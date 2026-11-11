@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useMemo, useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import Icon from '../components/Icons.jsx'
 import WorkspaceLayout from '../components/WorkspaceLayout.jsx'
 import bmw from '../assets/bmw-r1250.jpg'
@@ -11,8 +11,6 @@ import ducati from '../assets/ducati-multistrada.jpg'
 import kawasaki from '../assets/kawasaki-ninja650.jpg'
 import royal from '../assets/royal-enfield-scram.jpg'
 
-// Trello: Integrante 2 — pantalla Inicio/Catálogo inicial con tarjetas visuales y selección de motos.
-// Los datos de estas tarjetas son demostrativos; más adelante se consumirán desde la API de Integrante 4.
 const motos = [
   { id: 1, marca: 'BMW', modelo: 'R 1250 GS', precio: 24990000, anio: 2024, cilindraje: 1254, tipo: 'Aventura', image: bmw, rating: 4.8 },
   { id: 2, marca: 'Yamaha', modelo: 'MT-07', precio: 36500000, anio: 2024, cilindraje: 689, tipo: 'Naked', image: yamaha, rating: 4.7 },
@@ -57,12 +55,26 @@ function MotoCard({ moto, selected, favorite, onCompare, onFavorite }) {
 }
 
 export default function Home() {
+  const navigate = useNavigate()
   const [query, setQuery] = useState('')
   const [marca, setMarca] = useState('Todas')
   const [tipo, setTipo] = useState('Todos')
-  const [selected, setSelected] = useState([1, 2, 3])
+  
+  const [selected, setSelected] = useState(() => {
+    try {
+      const stored = localStorage.getItem('comotos_selected')
+      return stored ? JSON.parse(stored) : [1, 2, 3]
+    } catch {
+      return [1, 2, 3]
+    }
+  })
+
   const [favorites, setFavorites] = useState([])
   const [notice, setNotice] = useState('')
+
+  useEffect(() => {
+    localStorage.setItem('comotos_selected', JSON.stringify(selected))
+  }, [selected])
 
   const filtered = useMemo(() => motos.filter((moto) => {
     const queryMatch = `${moto.marca} ${moto.modelo}`.toLowerCase().includes(query.toLowerCase())
@@ -75,15 +87,18 @@ export default function Home() {
 
   function toggleCompare(id) {
     setNotice('')
+    let updated
     if (selected.includes(id)) {
-      setSelected((current) => current.filter((item) => item !== id))
-      return
+      updated = selected.filter((item) => item !== id)
+    } else {
+      if (selected.length >= 4) {
+        setNotice('Puedes seleccionar un máximo de 4 motocicletas.')
+        return
+      }
+      updated = [...selected, id]
     }
-    if (selected.length >= 4) {
-      setNotice('Puedes seleccionar un máximo de 4 motocicletas.')
-      return
-    }
-    setSelected((current) => current.includes(id) ? current : [...current, id])
+    setSelected(updated)
+    localStorage.setItem('comotos_selected', JSON.stringify(updated))
   }
 
   function toggleFavorite(id) {
@@ -95,7 +110,7 @@ export default function Home() {
       setNotice('Selecciona al menos 2 motocicletas para compararlas.')
       return
     }
-    setNotice(`Comparación preparada con ${selected.length} motocicletas. La vista comparativa completa se desarrollará en el siguiente módulo.`)
+    navigate('/comparar')
   }
 
   return (
@@ -150,7 +165,7 @@ export default function Home() {
           <aside className="compare-panel" id="comparador">
             <div className="compare-panel-header">
               <h2>Motos seleccionadas ({chosen.length}/4)</h2>
-              <button type="button" className="icon-button compact" title="Limpiar selección" aria-label="Limpiar selección" onClick={() => { setSelected([]); setNotice('') }}><Icon name="trash" size={18} /></button>
+              <button type="button" className="icon-button compact" title="Limpiar selección" aria-label="Limpiar selección" onClick={() => { setSelected([]); localStorage.setItem('comotos_selected', JSON.stringify([])); setNotice('') }}><Icon name="trash" size={18} /></button>
             </div>
             <div className="selected-list">
               {chosen.length === 0 ? (
@@ -166,21 +181,6 @@ export default function Home() {
             <div className="compare-action-area">
               <button type="button" className="button button-primary button-full" onClick={startCompare}><Icon name="chart" size={18} /> Comparar ahora</button>
               {notice && <p className="inline-notice" role="status">{notice}</p>}
-            </div>
-            <div className="quick-comparison">
-              <h3>Comparación rápida</h3>
-              {chosen.length >= 2 ? (
-                <div className="quick-table">
-                  <div className="quick-table-head"><span></span>{chosen.slice(0, 3).map((moto) => <span key={moto.id}>{moto.marca}</span>)}</div>
-                  {[
-                    ['Precio', (moto) => money(moto.precio)],
-                    ['Cilindraje', (moto) => `${moto.cilindraje} cc`],
-                    ['Año', (moto) => String(moto.anio)],
-                    ['Tipo', (moto) => moto.tipo],
-                  ].map(([label, getValue]) => <div className="quick-table-row" key={label}><strong>{label}</strong>{chosen.slice(0, 3).map((moto) => <span key={moto.id}>{getValue(moto)}</span>)}</div>)}
-                </div>
-              ) : <p className="quick-empty">Selecciona al menos dos motos para ver una comparación rápida.</p>}
-              <a className="text-link" href="#motos">Ver catálogo <Icon name="arrow" size={15} /></a>
             </div>
           </aside>
         </div>
