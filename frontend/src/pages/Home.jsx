@@ -2,8 +2,32 @@ import { useMemo, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Icon from '../components/Icons.jsx'
 import WorkspaceLayout from '../components/WorkspaceLayout.jsx'
+<<<<<<< HEAD
 import { motos, money } from '../data/motos.js'
 import { favoritesService } from '../services/favoritesService.js'
+=======
+import bmw from '../assets/bmw-r1250.jpg'
+import yamaha from '../assets/yamaha-mt07.jpg'
+import honda from '../assets/honda-cbr600rr.jpg'
+import triumph from '../assets/triumph-street-twin.jpg'
+import ktm from '../assets/ktm-390-duke.jpg'
+import ducati from '../assets/ducati-multistrada.jpg'
+import kawasaki from '../assets/kawasaki-ninja650.jpg'
+import royal from '../assets/royal-enfield-scram.jpg'
+
+const motos = [
+  { id: 1, marca: 'BMW', modelo: 'R 1250 GS', precio: 24990000, anio: 2024, cilindraje: 1254, tipo: 'Aventura', image: bmw, rating: 4.8 },
+  { id: 2, marca: 'Yamaha', modelo: 'MT-07', precio: 36500000, anio: 2024, cilindraje: 689, tipo: 'Naked', image: yamaha, rating: 4.7 },
+  { id: 3, marca: 'Honda', modelo: 'CBR 600RR', precio: 48990000, anio: 2025, cilindraje: 599, tipo: 'Deportiva', image: honda, rating: 4.9 },
+  { id: 4, marca: 'Triumph', modelo: 'Street Twin', precio: 32900000, anio: 2024, cilindraje: 900, tipo: 'Clásica', image: triumph, rating: 4.5 },
+  { id: 5, marca: 'KTM', modelo: '390 Duke', precio: 22500000, anio: 2025, cilindraje: 399, tipo: 'Naked', image: ktm, rating: 4.6 },
+  { id: 6, marca: 'Ducati', modelo: 'Multistrada V2', precio: 72990000, anio: 2025, cilindraje: 937, tipo: 'Aventura', image: ducati, rating: 4.8 },
+  { id: 7, marca: 'Kawasaki', modelo: 'Ninja 650', precio: 34990000, anio: 2024, cilindraje: 649, tipo: 'Deportiva', image: kawasaki, rating: 4.6 },
+  { id: 8, marca: 'Royal Enfield', modelo: 'Scram 411', precio: 16490000, anio: 2024, cilindraje: 411, tipo: 'Scrambler', image: royal, rating: 4.4 },
+]
+
+const money = (value) => `$ ${new Intl.NumberFormat('es-CO').format(value)}`
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
 
 function MotoCard({ moto, selected, favorite, onCompare, onFavorite }) {
   return (
@@ -50,6 +74,7 @@ export default function Home() {
     }
   })
 
+<<<<<<< HEAD
   const [favorites, setFavorites] = useState(() => favoritesService.getFavorites())
   const [notice, setNotice] = useState('')
 
@@ -67,6 +92,12 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
+=======
+  const [favorites, setFavorites] = useState([])
+  const [notice, setNotice] = useState('')
+
+  useEffect(() => {
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
     localStorage.setItem('comotos_selected', JSON.stringify(selected))
   }, [selected])
 
@@ -96,8 +127,12 @@ export default function Home() {
   }
 
   function toggleFavorite(id) {
+<<<<<<< HEAD
     favoritesService.toggleFavorite(id)
     setFavorites(favoritesService.getFavorites())
+=======
+    setFavorites((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id])
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
   }
 
   function startCompare() {

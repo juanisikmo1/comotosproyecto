@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import { useState, useEffect } from 'react'
+=======
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
 import { Link, useNavigate } from 'react-router-dom'
 import Icon from './Icons.jsx'
 import { authService } from '../services/authService.js'
@@ -8,13 +11,18 @@ const navItems = [
   { label: 'Inicio', href: '/', icon: 'home' },
   { label: 'Motos', href: '/#motos', icon: 'bike' },
   { label: 'Comparar', href: '/comparar', icon: 'compare' },
+<<<<<<< HEAD
   { label: 'Favoritos', href: '/favoritos', icon: 'heart' },
+=======
+  { label: 'Favoritos', href: '/#favoritos', icon: 'heart' },
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
   { label: 'Estadísticas', href: '/#estadisticas', icon: 'chart' },
 ]
 
 export default function WorkspaceLayout({ children, active = 'Inicio', searchValue = '', onSearchChange }) {
   const navigate = useNavigate()
   const user = authService.getUser()
+<<<<<<< HEAD
   const [sidebarOpen, setSidebarOpen] = useState(() => {
     try {
       const saved = localStorage.getItem('comotos_sidebar_open')
@@ -31,12 +39,15 @@ export default function WorkspaceLayout({ children, active = 'Inicio', searchVal
       console.error(e)
     }
   }, [sidebarOpen])
+=======
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
 
   function logout() {
     authService.logout()
     navigate('/', { replace: true })
   }
 
+<<<<<<< HEAD
   function toggleSidebar() {
     setSidebarOpen((prev) => !prev)
   }
@@ -78,6 +89,16 @@ export default function WorkspaceLayout({ children, active = 'Inicio', searchVal
           </button>
         </div>
 
+=======
+  return (
+    <div className="workspace-shell">
+      {/* Zona invisible en el borde izquierdo para detectar cuando el cursor se acerca */}
+      <div className="sidebar-hover-trigger" title="Desliza aquí para ver el menú" />
+      
+      {/* Barra lateral con la clase autohide-sidebar para ocultarse y mostrarse al pasar el cursor */}
+      <aside className="sidebar autohide-sidebar">
+        <Link to="/" className="brand-wordmark">Comotos</Link>
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
         <nav className="sidebar-nav" aria-label="Navegación principal">
           {navItems.map((item) => (
             <Link 
@@ -101,6 +122,7 @@ export default function WorkspaceLayout({ children, active = 'Inicio', searchVal
         <div className="sidebar-footnote">Consulta · Compara · Elige</div>
       </aside>
 
+<<<<<<< HEAD
       <div className="workspace-main animated-main">
         <header className="topbar">
           <button
@@ -112,6 +134,10 @@ export default function WorkspaceLayout({ children, active = 'Inicio', searchVal
           >
             <Icon name="menu" size={22} />
           </button>
+=======
+      <div className="workspace-main">
+        <header className="topbar">
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
           <label className="global-search">
             <Icon name="search" size={22} />
             <input 
@@ -123,8 +149,13 @@ export default function WorkspaceLayout({ children, active = 'Inicio', searchVal
             />
           </label>
           <div className="topbar-actions">
+<<<<<<< HEAD
             <Link to="/favoritos" className={`icon-button ${active === 'Favoritos' ? 'is-active' : ''}`} aria-label="Favoritos" title="Favoritos">
               <Icon name="heart" size={22} />
+=======
+            <Link to="/#favoritos" className="icon-button" aria-label="Favoritos" title="Favoritos">
+              <Icon name="star" size={24} />
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
             </Link>
             <button type="button" className="icon-button" aria-label="Notificaciones" title="Notificaciones">
               <Icon name="bell" size={23} />

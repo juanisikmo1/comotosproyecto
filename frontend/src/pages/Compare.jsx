@@ -2,7 +2,31 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Icon from '../components/Icons.jsx'
 import WorkspaceLayout from '../components/WorkspaceLayout.jsx'
+<<<<<<< HEAD
 import { motos as motosData, money } from '../data/motos.js'
+=======
+import bmw from '../assets/bmw-r1250.jpg'
+import yamaha from '../assets/yamaha-mt07.jpg'
+import honda from '../assets/honda-cbr600rr.jpg'
+import triumph from '../assets/triumph-street-twin.jpg'
+import ktm from '../assets/ktm-390-duke.jpg'
+import ducati from '../assets/ducati-multistrada.jpg'
+import kawasaki from '../assets/kawasaki-ninja650.jpg'
+import royal from '../assets/royal-enfield-scram.jpg'
+
+const motosData = [
+  { id: 1, marca: 'BMW', modelo: 'R 1250 GS', precio: 24990000, anio: 2024, cilindraje: 1254, tipo: 'Aventura', image: bmw, rating: 4.8, potencia: '136 HP', peso: '249 kg', frenos: 'Disco Doble ABS', tanque: '20 L' },
+  { id: 2, marca: 'Yamaha', modelo: 'MT-07', precio: 36500000, anio: 2024, cilindraje: 689, tipo: 'Naked', image: yamaha, rating: 4.7, potencia: '73.4 HP', peso: '184 kg', frenos: 'Disco Doble ABS', tanque: '14 L' },
+  { id: 3, marca: 'Honda', modelo: 'CBR 600RR', precio: 48990000, anio: 2025, cilindraje: 599, tipo: 'Deportiva', image: honda, rating: 4.9, potencia: '121 HP', peso: '193 kg', frenos: 'Disco Doble C-ABS', tanque: '18 L' },
+  { id: 4, marca: 'Triumph', modelo: 'Street Twin', precio: 32900000, anio: 2024, cilindraje: 900, tipo: 'Clásica', image: triumph, rating: 4.5, potencia: '65 HP', peso: '216 kg', frenos: 'Disco Único ABS', tanque: '12 L' },
+  { id: 5, marca: 'KTM', modelo: '390 Duke', precio: 22500000, anio: 2025, cilindraje: 399, tipo: 'Naked', image: ktm, rating: 4.6, potencia: '44 HP', peso: '165 kg', frenos: 'Disco Único ABS Supermoto', tanque: '15 L' },
+  { id: 6, marca: 'Ducati', modelo: 'Multistrada V2', precio: 72990000, anio: 2025, cilindraje: 937, tipo: 'Aventura', image: ducati, rating: 4.8, potencia: '113 HP', peso: '225 kg', frenos: 'Brembo Cornering ABS', tanque: '20 L' },
+  { id: 7, marca: 'Kawasaki', modelo: 'Ninja 650', precio: 34990000, anio: 2024, cilindraje: 649, tipo: 'Deportiva', image: kawasaki, rating: 4.6, potencia: '68 HP', peso: '193 kg', frenos: 'Disco Doble ABS', tanque: '15 L' },
+  { id: 8, marca: 'Royal Enfield', modelo: 'Scram 411', precio: 16490000, anio: 2024, cilindraje: 411, tipo: 'Scrambler', image: royal, rating: 4.4, potencia: '24.3 HP', peso: '185 kg', frenos: 'Disco Doble ABS Dual', tanque: '15 L' },
+]
+
+const money = (value) => `$ ${new Intl.NumberFormat('es-CO').format(value)}`
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
 
 export default function Compare() {
   const [selectedIds, setSelectedIds] = useState(() => {

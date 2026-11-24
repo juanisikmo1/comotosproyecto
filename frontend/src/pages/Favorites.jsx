@@ -61,12 +61,17 @@ export default function Favorites() {
     }
   })
 
+<<<<<<< HEAD
   // Escuchar cambios en favoritos y cargar del backend si hay sesión
   useEffect(() => {
     favoritesService.fetchFromBackend().then((ids) => {
       if (ids && ids.length > 0) setFavoriteIds(ids)
     })
 
+=======
+  // Escuchar cambios en favoritos
+  useEffect(() => {
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
     function handleFavoritesChange(e) {
       if (e.detail) {
         setFavoriteIds(e.detail)

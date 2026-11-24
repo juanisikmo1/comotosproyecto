@@ -18,7 +18,10 @@ const paths = {
   mail: <><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></>,
   check: <path d="m5 12 4 4L19 6"/>,
   logout: <><path d="M10 17l5-5-5-5M15 12H3"/><path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></>,
+<<<<<<< HEAD
   menu: <><path d="M4 6h16M4 12h16M4 18h16"/></>,
+=======
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
 }
 
 export default function Icon({ name, size = 20, className = '' }) {

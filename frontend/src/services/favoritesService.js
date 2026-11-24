@@ -3,7 +3,11 @@ const FAVORITES_KEY = 'comotos_favorites'
 const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api/v1'
 
 export const favoritesService = {
+<<<<<<< HEAD
   // Obtener lista de IDs favoritos desde localStorage
+=======
+  // Obtener lista de IDs favoritos
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
   getFavorites() {
     try {
       const stored = localStorage.getItem(FAVORITES_KEY)
@@ -48,6 +52,7 @@ export const favoritesService = {
 
   // Limpiar todos los favoritos
   clearFavorites() {
+<<<<<<< HEAD
     const current = this.getFavorites()
     this.saveFavorites([])
     // Sincronizar borrado con backend si hay sesión
@@ -82,6 +87,9 @@ export const favoritesService = {
       console.error('Error cargando favoritos del backend:', e)
     }
     return this.getFavorites()
+=======
+    this.saveFavorites([])
+>>>>>>> c9589814d17790c7267de7f4587919de5d38102e
   },
 
   // Sincronizar con API si hay token
